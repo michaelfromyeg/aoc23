@@ -73,7 +73,7 @@ def parse_games() -> list[Game]:
     return games
 
 
-def solve1():
+def solve1() -> int:
     """
     Cube conundrum.
     """
@@ -89,7 +89,7 @@ def solve1():
     return rv
 
 
-def solve2():
+def solve2() -> int:
     """
     Now, get the minimum number of cubes required.
     """
