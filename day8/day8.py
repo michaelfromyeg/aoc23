@@ -70,7 +70,7 @@ def parse() -> tuple[list[Step], dict[str, Node]]:
     """
     Get the steps and node map.
     """
-    lines = read(DAY, DEBUG)
+    lines = read(DAY, 1 if DEBUG else 0)
 
     steps_str = lines[0].strip()
     steps: list[Step] = []

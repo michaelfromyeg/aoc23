@@ -16,7 +16,7 @@ def solve1() -> int:
     """
     Sum the part numbers.
     """
-    lines = read(3, test=DEBUG)
+    lines = read(3, test=1 if DEBUG else 0)
 
     symbols: dict[tuple[int, int], str] = {}
 

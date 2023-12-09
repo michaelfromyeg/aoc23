@@ -41,7 +41,7 @@ def read() -> list[str]:
     """
     Read the puzzle input.
     """
-    with open("day1/input.txt") as f:
+    with open("day1/input.txt", encoding="utf-8") as f:
         lines = f.readlines()
         return lines
 

@@ -50,7 +50,7 @@ def parse_cards() -> list[Card]:
     """
     Turn the raw input into `Cards`.
     """
-    lines = read(4, DEBUG)
+    lines = read(4, 1 if DEBUG else 0)
 
     cards: list[Card] = []
     for line in lines:

@@ -202,7 +202,7 @@ def solve1(wildcard: bool = False) -> int:
     """
     Determine the best hand, poker-ish.
     """
-    lines = read(DAY, DEBUG)
+    lines = read(DAY, 1 if DEBUG else 0)
 
     hands: list[Hand] = []
     for line in lines:

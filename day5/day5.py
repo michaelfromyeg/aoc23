@@ -115,7 +115,7 @@ def do_maps(seed: int, maps: list[XYMap]) -> int:
 
 def solve1() -> int:
     """ """
-    lines = read(5, DEBUG)
+    lines = read(5, 1 if DEBUG else 0)
 
     seeds = parse_seeds(lines[0])
 
@@ -178,7 +178,7 @@ def get_new_seeds(seeds: list[int]) -> list[tuple[int, int]]:
 
 def solve2() -> int:
     """ """
-    lines = read(5, DEBUG)
+    lines = read(5, 1 if DEBUG else 0)
 
     seeds = parse_seeds(lines[0])
     new_seeds = get_new_seeds(seeds)

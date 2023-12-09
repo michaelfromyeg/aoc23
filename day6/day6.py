@@ -46,7 +46,7 @@ def solve1() -> int:
     """
     Determine the product of your winning ways.
     """
-    lines = read(DAY, DEBUG)
+    lines = read(DAY, 1 if DEBUG else 0)
 
     time_strs = re.sub(r"\s+", " ", lines[0]).strip().split(" ")[1:]
     distance_strs = re.sub(r"\s+", " ", lines[1]).strip().split(" ")[1:]
@@ -100,7 +100,7 @@ def solve2() -> int:
     """
     Uh-oh. Bad kerning.
     """
-    lines = read(DAY, DEBUG)
+    lines = read(DAY, 1 if DEBUG else 0)
 
     time_strs = re.sub(r"\s+", " ", lines[0]).strip().split(" ")[1:]
     distance_strs = re.sub(r"\s+", " ", lines[1]).strip().split(" ")[1:]
