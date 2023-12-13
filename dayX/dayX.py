@@ -8,14 +8,14 @@ DAY = 0
 
 def solve1() -> int:
     """ """
-    lines = read(DAY, DEBUG)
+    lines = read(DAY, 1 if DEBUG else 0)
 
     return 0
 
 
 def solve2() -> int:
     """ """
-    lines = read(DAY, DEBUG)
+    lines = read(DAY, 1 if DEBUG else 0)
 
     return 0
 
