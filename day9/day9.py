@@ -45,6 +45,7 @@ def get_value(values: list[int], forward: bool = True) -> int:
             last_col = n - row
             grid[row][last_col] = grid[row][last_col - 1] + grid[row + 1][last_col - 1]
     else:
+        # TODO(michaelfromyeg): figure out indexing for this one
         for i, row in enumerate(grid):
             grid[i] = [row[-1]] + row[:-1]
 
