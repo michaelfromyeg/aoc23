@@ -102,10 +102,10 @@ def connects(self: Pipe, other: Pipe, direction: Direction) -> bool:
     """
     Check if two pipes connect in a direction.
     """
-    if self == Pipe.START and other != Pipe.GROUND:
-        return True
-    if other == Pipe.START:
-        return True
+    # if self == Pipe.START and other != Pipe.GROUND:
+    #     return True
+    # if other == Pipe.START:
+    #     return True
 
     self_ways, other_ways = connectors(direction)
     return self in self_ways and other in other_ways
@@ -182,7 +182,7 @@ def dfs(grid: list[list[Pipe]], s: Point) -> int | None:
     """
 
     stack: list[tuple[Point, list[Point]]] = [
-        (s, [])
+        (s, [s])
     ]  # Stack to store the current node and the path to reach it
     visited = set()  # Set to keep track of visited nodes
 
@@ -192,8 +192,10 @@ def dfs(grid: list[list[Pipe]], s: Point) -> int | None:
         if DEBUG:
             print(f"Trying {current_point} from {path}")
 
+        # the >3 is a complete hack...
         if current_point == s and len(path) > 3 and path[-1] == s:
-            print("".join([str(grid[i][j]) for i, j in path]))
+            if DEBUG:
+                print("".join([str(grid[i][j]) for i, j in path]))
 
             return len(path) // 2
 
@@ -231,7 +233,13 @@ def solve1() -> int:
     if s is None:
         raise ValueError("No S in grid")
 
-    return dfs(grid, s) or 0
+    # This is so dumb but it works...
+    cmax = 0
+    for pipe in ["|", "-", "L", "J", "7", "F"]:
+        grid[s[0]][s[1]] = str2pipe(pipe)
+        cmax = max(dfs(grid, s) or 0, cmax)
+
+    return cmax
 
 
 def solve2() -> int:
