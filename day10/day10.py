@@ -4,14 +4,17 @@ https://adventofcode.com/2023/day/10
 from __future__ import annotations
 
 import pprint
+from collections import deque
 from enum import Enum
 
 from utils.read import read
 
 DAY = 10
 
-DEBUG = True
+DEBUG = False
 TEST = 1
+
+Point = tuple[int, int]
 
 
 class Direction(Enum):
@@ -43,6 +46,9 @@ class Pipe(Enum):
     def __repr__(self) -> str:
         return self.value
 
+    def __str__(self) -> str:
+        return self.value
+
 
 def str2pipe(c: str) -> Pipe:
     """
@@ -69,35 +75,163 @@ def str2pipe(c: str) -> Pipe:
             raise ValueError(f"{c} is not a pipe")
 
 
+SOUTHS = [Pipe.NS, Pipe.SW, Pipe.SE]
+NORTHS = [Pipe.NS, Pipe.NW, Pipe.NE]
+EASTS = [Pipe.EW, Pipe.NE, Pipe.SE]
+WESTS = [Pipe.EW, Pipe.NW, Pipe.SW]
+
+
+def connectors(direction: Direction) -> tuple[list[Pipe], list[Pipe]]:
+    """
+    Get the pipes connecting in the other direction.
+    """
+    match direction:
+        case Direction.N:
+            return (NORTHS, SOUTHS)
+        case Direction.S:
+            return (SOUTHS, NORTHS)
+        case Direction.E:
+            return (EASTS, WESTS)
+        case Direction.W:
+            return (WESTS, EASTS)
+        case _:
+            raise ValueError(f"{direction} is not a direction")
+
+
 def connects(self: Pipe, other: Pipe, direction: Direction) -> bool:
     """
     Check if two pipes connect in a direction.
     """
-    if (
-        self == Pipe.NS
-        and direction == Direction.N
-        and other in [Pipe.NS, Pipe.SE, Pipe.SW]
-    ):
+    if self == Pipe.START and other != Pipe.GROUND:
+        return True
+    if other == Pipe.START:
         return True
 
-    return False
+    self_ways, other_ways = connectors(direction)
+    return self in self_ways and other in other_ways
+
+
+def neighbors(grid: list[list[Pipe]], point: Point) -> list[Point]:
+    """
+    Get the neighbors for a point in the grid.
+    """
+    ns: list[Point] = []
+
+    x, y = point
+    self = grid[x][y]
+
+    min_x, max_x, min_y, max_y = -1, len(grid), -1, len(grid[0])
+
+    if x - 1 > min_x and connects(self, grid[x - 1][y], Direction.N):
+        ns.append((x - 1, y))
+    if x + 1 < max_x and connects(self, grid[x + 1][y], Direction.S):
+        ns.append((x + 1, y))
+
+    if y - 1 > min_y and connects(self, grid[x][y - 1], Direction.W):
+        ns.append((x, y - 1))
+    if y + 1 < max_y and connects(self, grid[x][y + 1], Direction.E):
+        ns.append((x, y + 1))
+
+    return ns
+
+
+def find_max_depth_along_ring(
+    parent: dict[Point, Point], depth: dict[Point, int]
+) -> int:
+    """
+    As title.
+    """
+    return 0
+
+
+def bfs(grid: list[list[Pipe]], s: Point) -> int:
+    """
+    Perform BFS on the grid, from the starting point.
+    """
+    visited: set[Point] = set()
+
+    parent: dict[Point, Point] = {}
+    depth: dict[Point, int] = {}
+
+    queue = deque([(s, 0)])
+
+    while queue:
+        curr_point, curr_depth = queue.pop()
+
+        if curr_point not in visited:
+            visited.add(curr_point)
+
+            depth[curr_point] = curr_depth
+
+            for neighbor in neighbors(grid, curr_point):
+                if neighbor not in visited:
+                    queue.append((neighbor, curr_depth + 1))
+                    parent[neighbor] = curr_point
+
+    if DEBUG:
+        pprint.pprint(parent)
+        pprint.pprint(depth)
+
+    return find_max_depth_along_ring(parent, depth)
+
+
+def dfs(grid: list[list[Pipe]], s: Point) -> int | None:
+    """
+    Perform iterative DFS. Try to find the start again.
+    s is the start point.
+    """
+
+    stack: list[tuple[Point, list[Point]]] = [
+        (s, [])
+    ]  # Stack to store the current node and the path to reach it
+    visited = set()  # Set to keep track of visited nodes
+
+    while stack:
+        current_point, path = stack.pop()
+
+        if DEBUG:
+            print(f"Trying {current_point} from {path}")
+
+        if current_point == s and len(path) > 3 and path[-1] == s:
+            print("".join([str(grid[i][j]) for i, j in path]))
+
+            return len(path) // 2
+
+        if current_point in visited:
+            continue
+
+        visited.add(current_point)
+
+        for neighbor in neighbors(grid, current_point):
+            stack.append((neighbor, path + [neighbor]))
+
+    return None
 
 
 def solve1() -> int:
-    """ """
+    """
+    Do a kind of DFS, I think.
+    """
     lines = read(DAY, TEST if DEBUG else 0)
 
+    s: Point | None = None
     grid: list[list[Pipe]] = []
-    for line in lines:
+    for row_idx, line in enumerate(lines):
         row: list[Pipe] = []
-        for c in line.strip():
-            row.append(str2pipe(c))
+        for col_idx, c in enumerate(line.strip()):
+            p = str2pipe(c)
+            if p == Pipe.START:
+                s = (row_idx, col_idx)
+            row.append(p)
         grid.append(row)
 
     if DEBUG:
         pprint.pprint(grid)
 
-    return 0
+    if s is None:
+        raise ValueError("No S in grid")
+
+    return dfs(grid, s) or 0
 
 
 def solve2() -> int:
