@@ -15,7 +15,7 @@ Days I have to come back to...
 - [ ] Day 9, part 2
   - I'm close, but I just need to work out the indexing and correct 'transpose' to compute the grid in the other direction
 - [ ] Day 10, part 2
-- [ ] Day 11
+- [x] Day 11
 - [ ] Day 12
 - [ ] Day 13
 - [ ] Day 14
