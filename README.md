@@ -14,3 +14,13 @@ Days I have to come back to...
   - (The brute force is far too slow; I need to write code to 'shift' whole ranges)
 - [ ] Day 9, part 2
   - I'm close, but I just need to work out the indexing and correct 'transpose' to compute the grid in the other direction
+- [ ] Day 10, part 2
+- [ ] Day 11
+- [ ] Day 12
+- [ ] Day 13
+- [ ] Day 14
+- [ ] Day 15
+- [ ] Day 16
+- [ ] Day 17
+- [ ] Day 18
+- [ ] Day 19
