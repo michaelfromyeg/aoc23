@@ -17,6 +17,10 @@ def pad(s: str, longest: int) -> str:
 def get_arrangements(record: str, totals: list[int], longest: int) -> int:
     """
     Determine the number of arrangements of springs possible.
+
+    The idea? Generate every possible permutation, check if valid; return true if valid.
+
+    Finish if sum(totals) == 0; then check arrangement (accumulator?)
     """
     print(f"{pad(record, longest)}{totals}")
 
