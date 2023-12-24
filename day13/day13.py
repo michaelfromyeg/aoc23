@@ -8,8 +8,8 @@ from math import floor
 
 from utils.read import read
 
-DEBUG = False
-TEST = 2
+DEBUG = True
+TEST = 1
 
 DAY = 13
 
@@ -21,6 +21,12 @@ class Object(StrEnum):
 
     ASH = "."
     ROCKS = "#"
+
+    def flip(self) -> Object:
+        """
+        Return the opposite of myself.
+        """
+        return Object.ROCKS if self._value_ == "." else Object.ASH
 
     def __str__(self) -> str:
         return self._value_
@@ -119,9 +125,9 @@ def score(a_map: Map) -> tuple[int, int]:
     return row_score, col_score
 
 
-def solve1() -> int:
+def get_maps() -> list[Map]:
     """
-    Determine the 'size' of x- and y- reflections in a 2D grid.
+    Determine the maps.
     """
     lines = read(DAY, TEST if DEBUG else 0)
     lines_str = "".join(lines)
@@ -139,6 +145,15 @@ def solve1() -> int:
             a_map.append(row)
         maps.append(a_map)
 
+    return maps
+
+
+def solve1() -> int:
+    """
+    Determine the 'size' of x- and y- reflections in a 2D grid.
+    """
+    maps = get_maps()
+
     row_total = 0
     col_total = 0
     for a_map in maps:
@@ -151,10 +166,38 @@ def solve1() -> int:
 
 
 def solve2() -> int:
-    """ """
-    lines = read(DAY, 1 if DEBUG else 0)
+    """
+    Try smudging a mirror.
 
-    return 0
+    Brute force, for now.
+    """
+    maps = get_maps()
+
+    row_total = 0
+    col_total = 0
+    for a_map in maps[:1]:
+        o_rs = o_cs = score(a_map)
+
+        row_score, col_score = 0, 0
+        for i, row in enumerate(a_map):
+            for j, c in enumerate(row):
+                a_map[i][j] = c.flip()
+
+                rs, cs = score(a_map)
+                if rs == o_rs and cs == o_cs:
+                    continue
+
+                print(f"Flipped ({i},{j}), got: {row_score}, {col_score}")
+
+                row_score = max(rs, row_score)
+                col_score = max(cs, col_score)
+
+                a_map[i][j] = c
+
+        row_total += row_score
+        col_total += col_score
+
+    return 100 * row_total + col_total
 
 
 if __name__ == "__main__":

@@ -1,16 +1,14 @@
 """
-https://adventofcode.com/2023/day/12
+https://adventofcode.com/2023/day/19
 """
 from utils.read import read
 
 DEBUG = True
-DAY = 0
+DAY = 19
 
 
 def solve1() -> int:
-    """
-    Sum possible arrangements for damaged springs.
-    """
+    """ """
     lines = read(DAY, 1 if DEBUG else 0)
 
     return 0
