@@ -16,8 +16,10 @@ Days I have to come back to...
   - I'm close, but I just need to work out the indexing and correct 'transpose' to compute the grid in the other direction
 - [ ] Day 10, part 2
 - [x] Day 11
-- [ ] Day 12
-- [ ] Day 13
+- [ ] Day 12, part 2
+  - My brute force version for part 1 won't fly; there's probably some fancy combination math that will work, _or_ DP (which I'm not far from, I think)
+- [ ] Day 13, part 2
+  - All I have down is the brute force version (i.e., smudging every mirror)
 - [ ] Day 14
 - [x] Day 15
 - [ ] Day 16
