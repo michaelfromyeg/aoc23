@@ -1,7 +1,6 @@
 """
 https://adventofcode.com/2023/day/12
 """
-
 from utils.read import read
 
 DEBUG = True
@@ -131,11 +130,11 @@ def solve2() -> int:
         print(new_raw_record, new_totals)
 
         # TODO(michaelfromyeg): process the new arrangement
-        arrangements += 0
+        arrangements += get_arrangements(new_raw_record, new_totals, longest)
 
     return arrangements
 
 
 if __name__ == "__main__":
-    # print(solve1())
-    print(solve2())
+    print(solve1())
+    # print(solve2())
