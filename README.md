@@ -20,9 +20,16 @@ Days I have to come back to...
   - My brute force version for part 1 won't fly; there's probably some fancy combination math that will work, _or_ DP (which I'm not far from, I think)
 - [ ] Day 13, part 2
   - All I have down is the brute force version (i.e., smudging every mirror)
-- [ ] Day 14
+- [ ] Day 14, part 2
+  - Just need to add the cycle detection bit for patterns; not too hard
 - [x] Day 15
-- [ ] Day 16
+- [x] Day 16
 - [ ] Day 17
 - [ ] Day 18
 - [ ] Day 19
+- [ ] Day 20
+- [ ] Day 21
+- [ ] Day 22
+- [ ] Day 23
+- [ ] Day 24
+- [ ] Day 25
