@@ -13,7 +13,8 @@ DAY = 11
 
 def pretty_print_2d_array(arr: list[list[int]]) -> None:
     """
-    Pretty print my distance grid."""
+    Pretty print my distance grid.
+    """
     if not arr:
         return None
 
